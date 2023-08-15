@@ -13,13 +13,16 @@ export interface GameQuery {
   genre: Genre | null;
   platform: Platform | null;
   sortOrder: string;
+  searchText: string;
 }
 
 function App() {
   const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
   return (
     <div className="flex flex-col h-screen dark:bg-dark-mode bg-slate-50">
-      <NavBar />
+      <NavBar
+        onSearch={(searchText) => setGameQuery({ ...gameQuery, searchText })}
+      />
       <div className="flex flex-row dark:bg-dark-mode">
         <SideBar
           onSelectGenre={(genre) => setGameQuery({ ...gameQuery, genre })}
