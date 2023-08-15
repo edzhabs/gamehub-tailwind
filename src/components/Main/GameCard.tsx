@@ -18,7 +18,6 @@ const GameCard = ({ game }: Props) => {
         <PlatformIconList
           platforms={game.parent_platforms.map((p) => p.platform)}
         />
-
         <h2 className="mt-2 text-2xl font-bold">{game.name}</h2>
       </div>
       <div className="bg-slate-200 text-sm font-semibold text-slate-600 rounded-full p-2 absolute top-0 m-2">

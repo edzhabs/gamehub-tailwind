@@ -1,7 +1,42 @@
-const SideBar = () => {
+import getCroppedImageUrl from "../../hooks/image-url";
+import useGenres, { Genre } from "../../hooks/useGenres";
+
+interface Props {
+  selectedGenre: Genre | null;
+  onSelectGenre: (genre: Genre) => void;
+}
+
+const SideBar = ({ selectedGenre, onSelectGenre }: Props) => {
+  const { data } = useGenres();
+
   return (
-    <aside className="hidden bg-gray-400 lg:block w-52 py-1 px-6 h-full dark:text-white">
-      Sidebar
+    <aside className="hidden lg:block w-52 py-1 px-4 h-full dark:text-white">
+      <h1 className="text-2xl font-bold">Genres</h1>
+      <ul className="mt-5">
+        {data.map((genre) => (
+          <li className="flex flex-row gap-2 my-3 items-center" key={genre.id}>
+            <img
+              className="w-9 h-9 rounded-lg object-cover"
+              src={getCroppedImageUrl(genre.image_background)}
+              alt={genre.name}
+            />
+            <button
+              onClick={() => onSelectGenre(genre)}
+              className="text-left text-lg hover:underline hover:text-slate-500 hover:underline-offset-4 transition-transform hover:scale-105"
+            >
+              <span
+                className={` ${
+                  selectedGenre?.name === genre.name
+                    ? "font-bold text-xl underline underline-offset-4"
+                    : "font-normal"
+                }`}
+              >
+                {genre.name}
+              </span>
+            </button>
+          </li>
+        ))}
+      </ul>
     </aside>
   );
 };
