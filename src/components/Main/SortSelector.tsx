@@ -32,7 +32,7 @@ const SortSelector = ({ onSelectSortOrder, selectedSortOrder }: Props) => {
     >
       <button
         onClick={() => setShowPlatformList(!showPlatformList)}
-        className={`flex items-center px-4 py-2  rounded-lg  hover:bg-slate-300 hover:cursor-pointer dark:hover:bg-slate-600  ${
+        className={`truncate flex items-center px-4 py-2  rounded-lg  hover:bg-slate-300 hover:cursor-pointer dark:hover:bg-slate-600  ${
           showPlatformList
             ? "bg-slate-300 dark:bg-slate-500 shadow-inner"
             : "bg-slate-200 dark:bg-slate-700"

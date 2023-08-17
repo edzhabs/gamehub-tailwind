@@ -3,5 +3,23 @@
 @tailwind utilities;
 
 .card {
-  @apply rounded-xl bg-white shadow-sm hover:cursor-pointer hover:shadow-md overflow-hidden hover:scale-105 transition-transform ease-in-out duration-500 dark:text-white dark:bg-gray-800 dark:hover:shadow-slate-700;
+  @apply rounded-xl bg-white shadow-sm overflow-hidden  dark:text-white dark:bg-gray-800;
+}
+
+.card-animation {
+  @apply hover:cursor-pointer hover:scale-105 dark:hover:shadow-slate-700 hover:shadow-md transition-transform ease-in-out duration-500;
+}
+
+.animate-pulse {
+  animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1.5;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
