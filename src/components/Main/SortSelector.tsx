@@ -38,7 +38,7 @@ const SortSelector = ({ onSelectSortOrder, selectedSortOrder }: Props) => {
             : "bg-slate-200 dark:bg-slate-700"
         }`}
       >
-        Order by: {selectedOrder?.label}
+        Order by: {selectedOrder?.label || "Relevance"}
         <BiChevronDown className="inline-block ml-4" size={25} />
       </button>
       {showPlatformList && (
@@ -46,7 +46,8 @@ const SortSelector = ({ onSelectSortOrder, selectedSortOrder }: Props) => {
           {sortOrders.map((sort) => (
             <li
               onClick={() => {
-                onSelectSortOrder(sort.value), setShowPlatformList(false);
+                onSelectSortOrder(sort.value);
+                setShowPlatformList(false);
               }}
               key={sort.value}
               value={sort.value}

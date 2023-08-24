@@ -10,12 +10,12 @@ interface Props {
 }
 
 const PlatformSelector = ({ onSelectPlatform, selectedPlatform }: Props) => {
-  const { data } = usePlatforms();
+  const { data, error } = usePlatforms();
   const [showPlatformList, setShowPlatformList] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   useOutsideClickHandler(dropdownRef, setShowPlatformList);
-
+  if (error) return null;
   return (
     <div
       className="relative  dark:text-white text-md font-semibold"
@@ -34,7 +34,7 @@ const PlatformSelector = ({ onSelectPlatform, selectedPlatform }: Props) => {
       </button>
       {showPlatformList && (
         <ul className="w-60 bg-white dark:bg-slate-800 mt-2 border border-1 dark:border-slate-500 rounded-lg absolute z-10 overflow-hidden">
-          {data.map((platform) => (
+          {data?.results.map((platform) => (
             <li
               onClick={() => {
                 onSelectPlatform(platform), setShowPlatformList(false);

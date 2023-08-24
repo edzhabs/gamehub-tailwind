@@ -8,21 +8,23 @@ interface Props {
 }
 
 const SideBar = ({ selectedGenre, onSelectGenre }: Props) => {
-  const { data, error, loading } = useGenres();
+  const { data, isLoading } = useGenres();
 
-  if (error)
-    return (
-      <h1 className="text-md text-center text-red-600 font-bold">{error}</h1>
-    );
+  // if (error)
+  //   return (
+  //     <h1 className="text-md text-center text-red-600 font-bold">
+  //       {error.message}
+  //     </h1>
+  //   );
 
   return (
     <aside className="hidden lg:block w-52 py-1 px-4 h-full dark:text-white">
       <h1 className="text-2xl font-bold">Genres</h1>
-      {loading && (
+      {isLoading && (
         <LiaSpinnerSolid className="text-center m-10 animate-spin" size={50} />
       )}
       <ul className="mt-5">
-        {data.map((genre) => (
+        {data?.results.map((genre) => (
           <li className="flex flex-row gap-2 my-3 items-center" key={genre.id}>
             <img
               className="w-9 h-9 rounded-lg object-cover"
