@@ -3,6 +3,7 @@ import { Platform } from "../../hooks/usePlatforms";
 import usePlatforms from "../../hooks/usePlatforms";
 import { BiChevronDown } from "react-icons/bi";
 import useOutsideClickHandler from "../../hooks/useOutsideClickHandler";
+import usePlatform from "../../hooks/usePlatform";
 
 interface Props {
   onSelectPlatform: (platform: Platform) => void;
@@ -13,9 +14,8 @@ const PlatformSelector = ({ onSelectPlatform, selectedPlatformId }: Props) => {
   const { data, error } = usePlatforms();
   const [showPlatformList, setShowPlatformList] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const platform = usePlatform(selectedPlatformId);
   useOutsideClickHandler(dropdownRef, setShowPlatformList);
-
-  const platform = data?.results.find((p) => selectedPlatformId === p.id);
   if (error) return null;
   return (
     <div
