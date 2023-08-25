@@ -3,6 +3,8 @@ import { GameQuery } from "../../App";
 import useGames from "../../hooks/useGames";
 import GameCard from "./GameCard";
 import SkeletonGameCard from "./SkeletonGameCard";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { LiaSpinnerSolid } from "react-icons/lia";
 
 const SKELETON_COUNT = 16;
 interface Props {
@@ -10,14 +12,11 @@ interface Props {
 }
 
 const GameGrid = ({ gameQuery }: Props) => {
-  const {
-    data,
-    error,
-    isLoading,
-    fetchNextPage,
-    isFetchingNextPage,
-    hasNextPage,
-  } = useGames(gameQuery);
+  const { data, error, isLoading, fetchNextPage, hasNextPage } =
+    useGames(gameQuery);
+
+  const fetchedGamesCount =
+    data?.pages.reduce((total, page) => total + page.results.length, 0) || 0;
 
   if (error)
     return (
@@ -26,7 +25,11 @@ const GameGrid = ({ gameQuery }: Props) => {
       </h1>
     );
   return (
-    <>
+    <InfiniteScroll
+      dataLength={fetchedGamesCount}
+      next={() => fetchNextPage()}
+      hasMore={!!hasNextPage}
+    >
       <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {isLoading &&
           Array.from({ length: SKELETON_COUNT }, (_, index) => (
@@ -40,21 +43,7 @@ const GameGrid = ({ gameQuery }: Props) => {
           </React.Fragment>
         ))}
       </div>
-
-      {hasNextPage && (
-        <button
-          disabled={isFetchingNextPage}
-          onClick={() => fetchNextPage()}
-          className={`mt-10 px-3 py-2 text-md rounded-lg outline outline-1 outline-slate-500 hover:bg-slate-100 dark:outline-none  dark:hover:bg-slate-600  dark:text-white ${
-            isFetchingNextPage
-              ? "bg-slate-100 dark:bg-slate-600"
-              : "dark:bg-slate-700"
-          }`}
-        >
-          {isFetchingNextPage ? "Loading.." : "Load More"}
-        </button>
-      )}
-    </>
+    </InfiniteScroll>
   );
 };
 
