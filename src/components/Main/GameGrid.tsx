@@ -26,9 +26,18 @@ const GameGrid = ({ gameQuery }: Props) => {
     );
   return (
     <InfiniteScroll
+      style={{ overflowY: "hidden", overflowX: "hidden" }}
       dataLength={fetchedGamesCount}
       next={() => fetchNextPage()}
       hasMore={!!hasNextPage}
+      loader={
+        <div className="flex justify-center w-full">
+          <LiaSpinnerSolid
+            className="mt-10 animate-spin dark:text-slate-200"
+            size={50}
+          />
+        </div>
+      }
     >
       <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {isLoading &&

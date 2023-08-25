@@ -6,15 +6,16 @@ import useOutsideClickHandler from "../../hooks/useOutsideClickHandler";
 
 interface Props {
   onSelectPlatform: (platform: Platform) => void;
-  selectedPlatform: Platform | null;
+  selectedPlatformId?: number;
 }
 
-const PlatformSelector = ({ onSelectPlatform, selectedPlatform }: Props) => {
+const PlatformSelector = ({ onSelectPlatform, selectedPlatformId }: Props) => {
   const { data, error } = usePlatforms();
   const [showPlatformList, setShowPlatformList] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-
   useOutsideClickHandler(dropdownRef, setShowPlatformList);
+
+  const platform = data?.results.find((p) => selectedPlatformId === p.id);
   if (error) return null;
   return (
     <div
@@ -29,7 +30,7 @@ const PlatformSelector = ({ onSelectPlatform, selectedPlatform }: Props) => {
         }`}
         onClick={() => setShowPlatformList(!showPlatformList)}
       >
-        {selectedPlatform ? selectedPlatform.name : "Platform"}
+        {selectedPlatformId ? platform?.name : "Platform"}
         <BiChevronDown size={25} className="inline-block ml-4" />
       </button>
       {showPlatformList && (
@@ -40,7 +41,7 @@ const PlatformSelector = ({ onSelectPlatform, selectedPlatform }: Props) => {
                 onSelectPlatform(platform), setShowPlatformList(false);
               }}
               className={`cursor-pointer py-2 px-4 hover:bg-slate-200 dark:hover:bg-slate-700 ${
-                selectedPlatform?.name === platform.name &&
+                selectedPlatformId === platform.id &&
                 "dark:bg-slate-600 bg-slate-200"
               }`}
               key={platform.id}

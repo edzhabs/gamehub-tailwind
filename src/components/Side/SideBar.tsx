@@ -3,11 +3,11 @@ import useGenres, { Genre } from "../../hooks/useGenres";
 import { LiaSpinnerSolid } from "react-icons/lia";
 
 interface Props {
-  selectedGenre: Genre | null;
+  selectedGenreId?: number;
   onSelectGenre: (genre: Genre) => void;
 }
 
-const SideBar = ({ selectedGenre, onSelectGenre }: Props) => {
+const SideBar = ({ selectedGenreId, onSelectGenre }: Props) => {
   const { data, isLoading } = useGenres();
 
   // if (error)
@@ -37,7 +37,7 @@ const SideBar = ({ selectedGenre, onSelectGenre }: Props) => {
             >
               <span
                 className={` ${
-                  selectedGenre?.name === genre.name
+                  selectedGenreId === genre.id
                     ? "font-bold text-xl underline underline-offset-4"
                     : "font-normal"
                 }`}

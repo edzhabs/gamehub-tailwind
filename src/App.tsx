@@ -5,13 +5,11 @@ import GameHeading from "./components/Main/GameHeading";
 import PlatformSelector from "./components/Main/PlatformSelector";
 import NavBar from "./components/Nav/NavBar";
 import SideBar from "./components/Side/SideBar";
-import { Genre } from "./hooks/useGenres";
-import { Platform } from "./hooks/usePlatforms";
 import SortSelector from "./components/Main/SortSelector";
 
 export interface GameQuery {
-  genre: Genre | null;
-  platform: Platform | null;
+  genreId?: number;
+  platformId?: number;
   sortOrder: string;
   searchText: string;
 }
@@ -25,17 +23,19 @@ function App() {
       />
       <div className="flex flex-row dark:bg-dark-mode">
         <SideBar
-          onSelectGenre={(genre) => setGameQuery({ ...gameQuery, genre })}
-          selectedGenre={gameQuery.genre}
+          onSelectGenre={(genre) =>
+            setGameQuery({ ...gameQuery, genreId: genre.id })
+          }
+          selectedGenreId={gameQuery.genreId}
         />
         <main className="flex-1 p-3 dark:bg-dark-mode pb-6">
           <GameHeading gameQuery={gameQuery} />
           <div className="flex flex-row gap-5 mb-8">
             <PlatformSelector
               onSelectPlatform={(platform) =>
-                setGameQuery({ ...gameQuery, platform })
+                setGameQuery({ ...gameQuery, platformId: platform.id })
               }
-              selectedPlatform={gameQuery.platform}
+              selectedPlatformId={gameQuery.platformId}
             />
             <SortSelector
               onSelectSortOrder={(sortOrder) =>
