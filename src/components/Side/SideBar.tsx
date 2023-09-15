@@ -1,21 +1,13 @@
-import getCroppedImageUrl from "../../hooks/image-url";
-import useGenres, { Genre } from "../../hooks/useGenres";
 import { LiaSpinnerSolid } from "react-icons/lia";
+import getCroppedImageUrl from "../../hooks/image-url";
+import useGenres from "../../hooks/useGenres";
+import useGameQueryStore from "../../store";
 
-interface Props {
-  selectedGenreId?: number;
-  onSelectGenre: (genre: Genre) => void;
-}
-
-const SideBar = ({ selectedGenreId, onSelectGenre }: Props) => {
+const SideBar = () => {
   const { data, isLoading } = useGenres();
 
-  // if (error)
-  //   return (
-  //     <h1 className="text-md text-center text-red-600 font-bold">
-  //       {error.message}
-  //     </h1>
-  //   );
+  const setGenreId = useGameQueryStore((s) => s.setGenreId);
+  const selectedGenreId = useGameQueryStore((s) => s.gameQuery.genreId);
 
   return (
     <aside className="hidden lg:block w-52 py-1 px-4 h-full dark:text-white">
@@ -32,7 +24,7 @@ const SideBar = ({ selectedGenreId, onSelectGenre }: Props) => {
               alt={genre.name}
             />
             <button
-              onClick={() => onSelectGenre(genre)}
+              onClick={() => setGenreId(genre.id)}
               className="text-left text-lg xl:text-xl hover:underline hover:text-slate-500 hover:underline-offset-4 transition-transform hover:scale-105"
             >
               <span

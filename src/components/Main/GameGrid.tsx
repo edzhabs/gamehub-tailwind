@@ -1,19 +1,14 @@
 import React from "react";
-import { GameQuery } from "../../App";
+import { LiaSpinnerSolid } from "react-icons/lia";
+import InfiniteScroll from "react-infinite-scroll-component";
 import useGames from "../../hooks/useGames";
 import GameCard from "./GameCard";
 import SkeletonGameCard from "./SkeletonGameCard";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { LiaSpinnerSolid } from "react-icons/lia";
 
 const SKELETON_COUNT = 16;
-interface Props {
-  gameQuery: GameQuery;
-}
 
-const GameGrid = ({ gameQuery }: Props) => {
-  const { data, error, isLoading, fetchNextPage, hasNextPage } =
-    useGames(gameQuery);
+const GameGrid = () => {
+  const { data, error, isLoading, fetchNextPage, hasNextPage } = useGames();
 
   const fetchedGamesCount =
     data?.pages.reduce((total, page) => total + page.results.length, 0) || 0;

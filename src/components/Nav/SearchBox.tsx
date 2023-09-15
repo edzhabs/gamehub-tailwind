@@ -1,16 +1,14 @@
 import { useRef } from "react";
+import useGameQueryStore from "../../store";
 
-interface Props {
-  onSearch: (searchText: string) => void;
-}
-
-const SearchBox = ({ onSearch }: Props) => {
+const SearchBox = () => {
   const ref = useRef<HTMLInputElement>(null);
+  const setSearch = useGameQueryStore((s) => s.setSearch);
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        if (ref.current) onSearch(ref.current.value);
+        if (ref.current) setSearch(ref.current.value);
       }}
     >
       <input

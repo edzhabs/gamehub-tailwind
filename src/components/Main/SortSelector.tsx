@@ -1,13 +1,9 @@
 import { BiChevronDown } from "react-icons/bi";
 import useOutsideClickHandler from "../../hooks/useOutsideClickHandler";
 import { useRef, useState } from "react";
+import useGameQueryStore from "../../store";
 
-interface Props {
-  onSelectSortOrder: (selectedSortOrder: string) => void;
-  selectedSortOrder: string;
-}
-
-const SortSelector = ({ onSelectSortOrder, selectedSortOrder }: Props) => {
+const SortSelector = () => {
   const sortOrders = [
     { value: "", label: "Relevance" },
     { value: "name", label: "Name" },
@@ -17,6 +13,8 @@ const SortSelector = ({ onSelectSortOrder, selectedSortOrder }: Props) => {
     { value: "-rating", label: "Popularity" },
   ];
   const [showPlatformList, setShowPlatformList] = useState(false);
+  const setSortOrder = useGameQueryStore((s) => s.setSortOrder);
+  const selectedSortOrder = useGameQueryStore((s) => s.gameQuery.sortOrder);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   useOutsideClickHandler(dropdownRef, setShowPlatformList);
@@ -46,7 +44,7 @@ const SortSelector = ({ onSelectSortOrder, selectedSortOrder }: Props) => {
           {sortOrders.map((sort) => (
             <li
               onClick={() => {
-                onSelectSortOrder(sort.value);
+                setSortOrder(sort.value);
                 setShowPlatformList(false);
               }}
               key={sort.value}

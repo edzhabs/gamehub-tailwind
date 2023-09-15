@@ -1,18 +1,16 @@
 import { useRef, useState } from "react";
-import { Platform } from "../../hooks/usePlatforms";
-import usePlatforms from "../../hooks/usePlatforms";
 import { BiChevronDown } from "react-icons/bi";
 import useOutsideClickHandler from "../../hooks/useOutsideClickHandler";
 import usePlatform from "../../hooks/usePlatform";
+import usePlatforms from "../../hooks/usePlatforms";
+import useGameQueryStore from "../../store";
 
-interface Props {
-  onSelectPlatform: (platform: Platform) => void;
-  selectedPlatformId?: number;
-}
-
-const PlatformSelector = ({ onSelectPlatform, selectedPlatformId }: Props) => {
+const PlatformSelector = () => {
   const { data, error } = usePlatforms();
   const [showPlatformList, setShowPlatformList] = useState(false);
+  const setPlatformId = useGameQueryStore((s) => s.setPlatformId);
+  const selectedPlatformId = useGameQueryStore((s) => s.gameQuery.platformId);
+
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const platform = usePlatform(selectedPlatformId);
   useOutsideClickHandler(dropdownRef, setShowPlatformList);
@@ -38,7 +36,7 @@ const PlatformSelector = ({ onSelectPlatform, selectedPlatformId }: Props) => {
           {data?.results.map((platform) => (
             <li
               onClick={() => {
-                onSelectPlatform(platform), setShowPlatformList(false);
+                setPlatformId(platform.id), setShowPlatformList(false);
               }}
               className={`cursor-pointer py-2 px-4 hover:bg-slate-200 dark:hover:bg-slate-700 ${
                 selectedPlatformId === platform.id &&
