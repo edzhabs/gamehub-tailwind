@@ -4,6 +4,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import useGames from "../../hooks/useGames";
 import GameCard from "./GameCard";
 import SkeletonGameCard from "./SkeletonGameCard";
+import { Link } from "react-router-dom";
 
 const SKELETON_COUNT = 16;
 
@@ -21,7 +22,8 @@ const GameGrid = () => {
     );
   return (
     <InfiniteScroll
-      style={{ overflowY: "hidden", overflowX: "hidden" }}
+      // style={{ overflowY: "hidden", overflowX: "hidden" }}
+      style={{ overflow: "visible" }}
       dataLength={fetchedGamesCount}
       next={() => fetchNextPage()}
       hasMore={!!hasNextPage}
@@ -42,7 +44,9 @@ const GameGrid = () => {
         {data?.pages.map((page, index) => (
           <React.Fragment key={index}>
             {page.results.map((game) => (
-              <GameCard key={game.id} game={game} />
+              <Link to={"games/" + game.slug} key={game.id}>
+                <GameCard game={game} />
+              </Link>
             ))}
           </React.Fragment>
         ))}

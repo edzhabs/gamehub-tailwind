@@ -1,7 +1,7 @@
-import { LiaSpinnerSolid } from "react-icons/lia";
 import getCroppedImageUrl from "../../hooks/image-url";
 import useGenres from "../../hooks/useGenres";
 import useGameQueryStore from "../../store";
+import Loading from "../Loading";
 
 const SideBar = () => {
   const { data, isLoading } = useGenres();
@@ -12,9 +12,7 @@ const SideBar = () => {
   return (
     <aside className="hidden lg:block w-52 py-1 px-4 h-full dark:text-white">
       <h1 className="text-2xl font-bold">Genres</h1>
-      {isLoading && (
-        <LiaSpinnerSolid className="text-center m-10 animate-spin" size={50} />
-      )}
+      {isLoading && <Loading />}
       <ul className="mt-5">
         {data?.results.map((genre) => (
           <li className="flex flex-row gap-2 my-3 items-center" key={genre.id}>

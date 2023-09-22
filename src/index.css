@@ -7,7 +7,7 @@
 }
 
 .card-animation {
-  @apply hover:cursor-pointer hover:scale-105 dark:hover:shadow-slate-700 hover:shadow-md transition-transform ease-in-out duration-500;
+  @apply hover:cursor-pointer hover:scale-105 dark:hover:shadow-slate-700 hover:shadow-md transition-transform ease-in-out duration-150;
 }
 
 .animate-pulse {
