@@ -1,6 +1,6 @@
 import { BsHandThumbsUp } from "react-icons/bs";
-import getCroppedImageUrl from "../../hooks/image-url";
 import { Game } from "../../entities/Game";
+import getCroppedImageUrl from "../../hooks/image-url";
 import GameCardContainer from "./GameCardContainer";
 import PlatformIconList from "./PlatformIconList";
 

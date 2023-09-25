@@ -1,4 +1,3 @@
-import Footer from "../components/Footer";
 import GameGrid from "../components/Main/GameGrid";
 import GameHeading from "../components/Main/GameHeading";
 import PlatformSelector from "../components/Main/PlatformSelector";
@@ -19,7 +18,6 @@ const HomePage = () => {
           <GameGrid />
         </main>
       </div>
-      <Footer />
     </>
   );
 };

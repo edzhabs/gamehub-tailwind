@@ -13,7 +13,7 @@ const ExpandableText = ({ children }: Props) => {
   if (children.length < 300) return <p>{children}</p>;
   const summary = expanded ? children : children.substring(0, limit) + "...";
   return (
-    <p className="leading-7">
+    <p className="leading-7 text-lg">
       {summary}{" "}
       <button
         className="ml-1 px-2 py-1 rounded-md bg-yellow-300 text-black font-semibold text-sm"
