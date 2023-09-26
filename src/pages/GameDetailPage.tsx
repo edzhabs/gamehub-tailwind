@@ -15,11 +15,17 @@ const GameDetailPage = () => {
 
   return (
     <div className="dark:text-white p-5">
-      <h1 className="text-4xl tracking-wide font-bold mb-3">{game.name}</h1>
-      <ExpandableText>{game.description_raw}</ExpandableText>
-      <GameAttributes game={game} />
-      <GameTrailer gameId={game.id} />
-      <GameScreenshot gameId={game.id} />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <h1 className="text-4xl tracking-wide font-bold mb-3">{game.name}</h1>
+          <ExpandableText>{game.description_raw}</ExpandableText>
+          <GameAttributes game={game} />
+        </div>
+        <div>
+          <GameTrailer gameId={game.id} />
+          <GameScreenshot gameId={game.id} />
+        </div>
+      </div>
     </div>
   );
 };
